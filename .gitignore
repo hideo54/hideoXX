@@ -3,3 +3,4 @@ node_modules/
 icons/*
 !.gitkeep
 .env
+data.json

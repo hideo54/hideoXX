@@ -45,6 +45,7 @@ const numbers = range(10, 100);
     const users = await twitter.get('users/lookup', {
         screen_name: numbers.map(num => `hideo${num}`).join(',')
     }) as TwitterUser[];
+    await fs.writeFile('data.json', JSON.stringify(users), 'utf-8');
     for (const user of users) {
         await jobPerUser(user);
     }
