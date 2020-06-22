@@ -36,7 +36,8 @@ const jobPerUser = async (user: TwitterUser) => {
     const res = await axios.get(originalIconUrl, {
         responseType: 'arraybuffer',
     });
-    await fs.writeFile(`icons/${user.screen_name}.jpg`, res.data, 'binary');
+    const name = user.screen_name.toLowerCase();
+    await fs.writeFile(`icons/${name}.jpg`, res.data, 'binary');
 };
 
 const numbers = range(10, 100);
