@@ -12,19 +12,19 @@ const Gallery = () => {
         let text: string | null = null;
         switch (textType) {
             case 'followerCount':
-                text = account.followers_count.toString();
+                text = account.followersCount.toString();
                 break;
             case 'profile':
-                text = account.description;
+                text = account.profile;
                 break;
             case 'latestTweet':
-                text = account.status?.text || null;
+                text = account.latestTweet || null;
                 break;
         }
         return (
             <li className='tile'>
-                <a href={`https://twitter.com/${account.screen_name}`} target='_blank' rel='noopener' >
-                    <img src={`icons/${account.screen_name.toLowerCase()}.jpg`} />
+                <a href={`https://twitter.com/${account.screenName}`} target='_blank' rel='noopener' >
+                    <img src={`icons/${account.screenName.toLowerCase()}.jpg`} />
                     <p className={textType === 'followerCount' ? 'follower-count' : undefined}>{text}</p>
                 </a>
             </li>

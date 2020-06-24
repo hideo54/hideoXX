@@ -23,11 +23,13 @@ interface TwitterStatus {
 interface TwitterUser {
     name: string;
     screen_name: string;
+    description: string;
     protected: boolean;
     followers_count: number;
     friends_count: number;
     statuses_count: number;
     profile_image_url_https: string;
+    status?: TwitterStatus;
 }
 
 const jobPerUser = async (user: TwitterUser) => {
@@ -46,7 +48,13 @@ const numbers = range(10, 100);
     const users = await twitter.get('users/lookup', {
         screen_name: numbers.map(num => `hideo${num}`).join(',')
     }) as TwitterUser[];
-    await fs.writeFile('data.json', JSON.stringify(users), 'utf-8');
+    const savedData = users.map((user: TwitterUser) => ({
+        screenName: user.screen_name,
+        followersCount: user.followers_count,
+        profile: user.description,
+        latestTweet: user.status?.text,
+    }));
+    await fs.writeFile('data.json', JSON.stringify(savedData), 'utf-8');
     for (const user of users) {
         await jobPerUser(user);
     }
