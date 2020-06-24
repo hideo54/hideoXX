@@ -24,8 +24,10 @@ const Gallery = () => {
         return (
             <li className='tile'>
                 <a href={`https://twitter.com/${account.screenName}`} target='_blank' rel='noopener' >
-                    <img src={account.iconImageUrl} loading='lazy' />
-                    <p className={textType === 'followerCount' ? 'follower-count' : undefined}>{text}</p>
+                    <img src={account.iconImageUrl} alt={account.screenName} loading='lazy' />
+                    {text &&
+                        <p className={textType === 'followerCount' ? 'follower-count' : undefined}>{text}</p>
+                    }
                 </a>
             </li>
         );
