@@ -1,9 +1,10 @@
 import Twitter from 'twitter';
-import axios from 'axios';
-import { range } from 'lodash';
+import { range, chunk } from 'lodash';
 import { promises as fs } from 'fs';
 import dotenv from 'dotenv';
 dotenv.config();
+
+const numbers = range(1, 1000);
 
 const twitter = new Twitter({
     consumer_key: process.env.TWITTER_CONSUMER_KEY!,
@@ -32,12 +33,14 @@ interface TwitterUser {
     status?: TwitterStatus;
 }
 
-const numbers = range(10, 100);
-
 (async () => {
-    const users = await twitter.get('users/lookup', {
-        screen_name: numbers.map(num => `hideo${num}`).join(',')
-    }) as TwitterUser[];
+    let users: TwitterUser[] = [];
+    for (const c of chunk(numbers, 100)) {
+        const cUsers = await twitter.get('users/lookup', {
+            screen_name: c.map(num => `hideo${num}`).join(',')
+        }) as TwitterUser[];
+        users.push(...cUsers);
+    }
     const savedData = users.map((user: TwitterUser) => ({
         screenName: user.screen_name,
         iconImageUrl: user.profile_image_url_https.replace('_normal', ''),
