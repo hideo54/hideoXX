@@ -3,27 +3,80 @@ import { shuffle } from 'lodash';
 import data from '../data.json';
 
 const Gallery = () => {
+    const textTypes = [ 'followerCount', 'profile', 'latestTweet' ] as const;
+    type TextType = typeof textTypes[number];
     const [ isRandom, setIsRandom ] = useState<boolean>(false);
-    const handleIsRandomChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setIsRandom(e.target.checked);
-    };
+    const [ textType, setTextType ] = useState<TextType | null>('latestTweet');
     const accounts = isRandom ? shuffle(data) : data;
-    const tiles = accounts.map(account => (
-        <li className='tile'>
-            <img src={`icons/${account.screen_name.toLowerCase()}.jpg`} />
-            <p>{account.status?.text}</p>
-        </li>
-    ));
+    const tiles = accounts.map(account => {
+        let text: string | null = null;
+        switch (textType) {
+            case 'followerCount':
+                text = account.followers_count.toString();
+                break;
+            case 'profile':
+                text = account.description;
+                break;
+            case 'latestTweet':
+                text = account.status?.text || null;
+                break;
+        }
+        return (
+            <li className='tile'>
+                <img src={`icons/${account.screen_name.toLowerCase()}.jpg`} />
+                <p>{text}</p>
+            </li>
+        );
+    });
     return (
         <>
             <div id='controls'>
-                <input type='checkbox'
-                    id='is-random'
-                    name='is-random'
-                    checked={isRandom}
-                    onChange={handleIsRandomChange}
-                />
-                <label htmlFor='is-random'>Shuffle</label>
+                <div id='text-types'>
+                    <span className='text-type'>
+                        <input type='radio'
+                            id='null'
+                            name='null'
+                            checked={textType === null}
+                            onChange={() => {setTextType(null)}}
+                        />
+                        <label htmlFor='null'>None</label>
+                    </span>
+                    <span className='text-type'>
+                        <input type='radio'
+                            id='follower-count'
+                            name='follower-count'
+                            checked={textType === 'followerCount'}
+                            onChange={() => {setTextType('followerCount')}}
+                        />
+                        <label htmlFor='follower-count'>Follower Count</label>
+                    </span>
+                    <span className='text-type'>
+                        <input type='radio'
+                            id='profile'
+                            name='profile'
+                            checked={textType === 'profile'}
+                            onChange={() => {setTextType('profile')}}
+                        />
+                        <label htmlFor='profile'>Profile</label>
+                    </span>
+                    <span className='text-type'>
+                        <input type='radio'
+                            id='latest-tweet'
+                            name='latest-tweet'
+                            checked={textType === 'latestTweet'}
+                            onChange={() => {setTextType('latestTweet')}}
+                        />
+                        <label htmlFor='latest-tweet'>Latest Tweet</label>
+                    </span>
+                </div>
+                <div id='is-random'>
+                    <input type='checkbox'
+                        name='is-random'
+                        checked={isRandom}
+                        onChange={() => {setIsRandom(!isRandom)}}
+                    />
+                    <label htmlFor='is-random'>Shuffle</label>
+                </div>
             </div>
             <ul className='gallary'>
                 {tiles}

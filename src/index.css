@@ -40,3 +40,11 @@ li.tile {
     top: 0;
     width: 100%;
 }
+
+#controls span.text-type {
+    margin-right: 1em;
+}
+
+#is-random {
+    margin-top: 1em;
+}
