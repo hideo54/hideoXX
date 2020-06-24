@@ -4,3 +4,4 @@ icons/*
 !.gitkeep
 .env
 data.json
+public/main.bundle.js
