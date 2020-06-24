@@ -1,7 +1,5 @@
 .DS_Store
 node_modules/
-public/icons/*
-!.gitkeep
 .env
 data.json
 public/main.bundle.js

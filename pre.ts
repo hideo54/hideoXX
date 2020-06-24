@@ -32,16 +32,6 @@ interface TwitterUser {
     status?: TwitterStatus;
 }
 
-const jobPerUser = async (user: TwitterUser) => {
-    const iconUrl = user.profile_image_url_https;
-    const originalIconUrl = iconUrl.replace('_normal', '');
-    const res = await axios.get(originalIconUrl, {
-        responseType: 'arraybuffer',
-    });
-    const name = user.screen_name.toLowerCase();
-    await fs.writeFile(`public/icons/${name}.jpg`, res.data, 'binary');
-};
-
 const numbers = range(10, 100);
 
 (async () => {
@@ -50,12 +40,10 @@ const numbers = range(10, 100);
     }) as TwitterUser[];
     const savedData = users.map((user: TwitterUser) => ({
         screenName: user.screen_name,
+        iconImageUrl: user.profile_image_url_https.replace('_normal', ''),
         followersCount: user.followers_count,
         profile: user.description,
         latestTweet: user.status?.text,
     }));
     await fs.writeFile('data.json', JSON.stringify(savedData), 'utf-8');
-    for (const user of users) {
-        await jobPerUser(user);
-    }
 })();
