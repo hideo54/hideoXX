@@ -39,6 +39,7 @@ li.tile {
     position: absolute;
     top: 0;
     width: 100%;
+    color: black;
 }
 
 .tile p.follower-count {
