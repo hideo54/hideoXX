@@ -1,6 +1,6 @@
 .DS_Store
 node_modules/
-icons/*
+public/icons/*
 !.gitkeep
 .env
 data.json

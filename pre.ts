@@ -37,7 +37,7 @@ const jobPerUser = async (user: TwitterUser) => {
         responseType: 'arraybuffer',
     });
     const name = user.screen_name.toLowerCase();
-    await fs.writeFile(`icons/${name}.jpg`, res.data, 'binary');
+    await fs.writeFile(`public/icons/${name}.jpg`, res.data, 'binary');
 };
 
 const numbers = range(10, 100);
