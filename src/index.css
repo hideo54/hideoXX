@@ -7,7 +7,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-header {
+header, #controls {
     text-align: center;
 }
 
