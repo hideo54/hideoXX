@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { shuffle } from 'lodash';
 import data from '../data.json';
 
@@ -71,9 +71,10 @@ const Gallery = () => {
                         <label htmlFor='latest-tweet'>Latest Tweet</label>
                     </span>
                 </div>
-                <div id='is-random'>
+                <div id='is-random-block'>
                     <input type='checkbox'
                         name='is-random'
+                        id='is-random'
                         checked={isRandom}
                         onChange={() => {setIsRandom(!isRandom)}}
                     />
@@ -92,7 +93,7 @@ const App = () => {
         <>
             <header>
                 <h1>hideoXX</h1>
-                <p>Find your favorite hideoXX!</p>
+                <p>Find your favorite hideo!</p>
             </header>
             <Gallery />
         </>
