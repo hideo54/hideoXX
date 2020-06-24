@@ -4,14 +4,14 @@ import data from '../data.json';
 
 const Gallery = () => {
     const [ isRandom, setIsRandom ] = useState<boolean>(false);
-    let order = data.map(account => account.screen_name.toLowerCase());
     const handleIsRandomChange = (e: ChangeEvent<HTMLInputElement>) => {
         setIsRandom(e.target.checked);
     };
-    if (isRandom) order = shuffle(order);
-    const tiles = order.map(name => (
-        <li>
-            <img src={`icons/${name}.jpg`} />
+    const accounts = isRandom ? shuffle(data) : data;
+    const tiles = accounts.map(account => (
+        <li className='tile'>
+            <img src={`icons/${account.screen_name.toLowerCase()}.jpg`} />
+            <p>{account.status?.text}</p>
         </li>
     ));
     return (
