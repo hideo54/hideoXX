@@ -43,7 +43,7 @@ interface TwitterUser {
     }
     const savedData = users.map((user: TwitterUser) => ({
         screenName: user.screen_name,
-        iconImageUrl: user.profile_image_url_https.replace('_normal', ''),
+        iconImageUrl: user.profile_image_url_https.replace('_normal', '_bigger'),
         followersCount: user.followers_count,
         profile: user.description,
         latestTweet: user.status?.text,
