@@ -19,7 +19,7 @@ ul.gallary {
 }
 
 li.tile {
-    margin: 1em;
+    margin: 0.5em;
     list-style: none;
     width: 150px;
     height: 150px;
@@ -39,6 +39,11 @@ li.tile {
     position: absolute;
     top: 0;
     width: 100%;
+}
+
+.tile p.follower-count {
+    text-align: center;
+    font-size: 2em;
 }
 
 #controls span.text-type {

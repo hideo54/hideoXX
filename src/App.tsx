@@ -24,7 +24,7 @@ const Gallery = () => {
         return (
             <li className='tile'>
                 <img src={`icons/${account.screen_name.toLowerCase()}.jpg`} />
-                <p>{text}</p>
+                <p className={textType === 'followerCount' ? 'follower-count' : undefined}>{text}</p>
             </li>
         );
     });
